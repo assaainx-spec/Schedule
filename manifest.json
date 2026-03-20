@@ -1,0 +1,16 @@
+{
+  "name": "My McDonald's Schedule",
+  "short_name": "Rooster",
+  "start_url": "./schedule.html",
+  "display": "standalone",
+  "background_color": "#FFC72C",
+  "theme_color": "#FFC72C",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
