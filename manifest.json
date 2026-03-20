@@ -3,7 +3,7 @@
   "short_name": "Rooster",
   "start_url": "./schedule.html",
   "display": "standalone",
-  "background_color": "#FFC72C",
+  "background_color": "#ffffff",
   "theme_color": "#FFC72C",
   "icons": [
     {
