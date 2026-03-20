@@ -8,13 +8,14 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
+      --green: #27A737;
+      --green-dark: #1e8a2b;
       --yellow: #FFC72C;
-      --bg: #111111;
-      --surface: #1e1e1e;
-      --surface2: #2a2a2a;
-      --border: #333333;
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --border: #2e2e2e;
       --text: #ffffff;
-      --muted: #888888;
+      --muted: #7a7a7a;
     }
     body {
       background: var(--bg);
@@ -23,49 +24,49 @@
       min-height: 100vh;
     }
 
-    /* Yellow header */
+    /* ── Green header ── */
     .header-bar {
-      background: var(--yellow);
-      padding: 1rem 1.5rem;
+      background: var(--green);
+      padding: 0.9rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 10;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
-    .header-logo { display: flex; align-items: center; gap: 0.6rem; }
-    .m-icon {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #111;
-      letter-spacing: -0.05em;
-      line-height: 1;
-    }
+    .header-logo { display: flex; align-items: center; gap: 0.75rem; }
+
+    /* McDonald's golden arches SVG */
+    .mcd-logo { width: 36px; height: 36px; flex-shrink: 0; }
+
     .title-block .title {
       font-size: 1rem;
       font-weight: 700;
-      color: #111;
+      color: #fff;
+      line-height: 1.2;
     }
     .title-block .subtitle {
-      font-size: 0.68rem;
+      font-size: 0.67rem;
       font-weight: 500;
-      color: #555;
+      color: rgba(255,255,255,0.7);
     }
+
     .month-nav {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      background: rgba(0,0,0,0.12);
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.18);
       border-radius: 20px;
-      padding: 0.3rem 0.7rem;
+      padding: 0.28rem 0.65rem;
     }
     .month-nav button {
       background: none;
       border: none;
-      color: #111;
-      font-size: 1rem;
-      font-weight: 800;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
       cursor: pointer;
       width: 22px;
       height: 22px;
@@ -75,31 +76,31 @@
       border-radius: 50%;
       transition: background 0.15s;
     }
-    .month-nav button:hover { background: rgba(0,0,0,0.15); }
+    .month-nav button:hover { background: rgba(255,255,255,0.15); }
     .month-label {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: #111;
-      min-width: 110px;
+      color: #fff;
+      min-width: 105px;
       text-align: center;
     }
 
-    /* Body */
+    /* ── Container ── */
     .container {
-      max-width: 600px;
+      max-width: 580px;
       margin: 0 auto;
-      padding: 1.25rem 1rem 2rem;
+      padding: 1.1rem 1rem 2.5rem;
     }
 
-    /* Week strip */
+    /* ── Week strip ── */
     .week-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
     .week-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
@@ -110,27 +111,27 @@
       background: var(--surface);
       border: 1.5px solid var(--border);
       color: var(--text);
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 600;
       cursor: pointer;
-      padding: 0.28rem 0.65rem;
+      padding: 0.26rem 0.6rem;
       border-radius: 20px;
       transition: all 0.15s;
       font-family: 'Inter', sans-serif;
     }
     .week-arrows button:hover {
-      background: var(--yellow);
-      color: #111;
-      border-color: var(--yellow);
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
     }
 
-    /* Sync bar */
+    /* ── Sync bar ── */
     .sync-bar {
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      margin-bottom: 1rem;
-      font-size: 0.7rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.68rem;
       color: var(--muted);
     }
     .sync-dot {
@@ -139,36 +140,36 @@
       background: var(--border);
       flex-shrink: 0;
     }
-    .sync-dot.ok    { background: #6fcf6f; }
-    .sync-dot.error { background: #cf6f6f; }
+    .sync-dot.ok    { background: var(--green); }
+    .sync-dot.error { background: #cf4444; }
 
-    /* Day cards */
-    .days { display: flex; flex-direction: column; gap: 0.45rem; }
+    /* ── Day cards ── */
+    .days { display: flex; flex-direction: column; gap: 0.4rem; }
 
     .day-row {
       display: grid;
-      grid-template-columns: 72px 1fr;
-      gap: 0.45rem;
+      grid-template-columns: 68px 1fr;
+      gap: 0.4rem;
       align-items: stretch;
-      animation: fadeUp 0.25s ease forwards;
+      animation: fadeUp 0.22s ease forwards;
       opacity: 0;
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(7px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .day-row:nth-child(1) { animation-delay: 0.04s; }
-    .day-row:nth-child(2) { animation-delay: 0.08s; }
-    .day-row:nth-child(3) { animation-delay: 0.12s; }
-    .day-row:nth-child(4) { animation-delay: 0.16s; }
-    .day-row:nth-child(5) { animation-delay: 0.20s; }
-    .day-row:nth-child(6) { animation-delay: 0.24s; }
-    .day-row:nth-child(7) { animation-delay: 0.28s; }
+    .day-row:nth-child(1) { animation-delay: 0.03s; }
+    .day-row:nth-child(2) { animation-delay: 0.07s; }
+    .day-row:nth-child(3) { animation-delay: 0.11s; }
+    .day-row:nth-child(4) { animation-delay: 0.15s; }
+    .day-row:nth-child(5) { animation-delay: 0.19s; }
+    .day-row:nth-child(6) { animation-delay: 0.23s; }
+    .day-row:nth-child(7) { animation-delay: 0.27s; }
 
     .day-label {
       background: var(--surface);
       border-radius: 12px;
-      padding: 0.6rem 0.5rem;
+      padding: 0.55rem 0.4rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -176,46 +177,54 @@
       text-align: center;
     }
     .day-name {
-      font-size: 0.62rem;
+      font-size: 0.58rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
     }
     .day-date {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: var(--text);
       line-height: 1.1;
       margin-top: 2px;
     }
-    .day-label.today { background: var(--yellow); }
-    .day-label.today .day-name { color: #666; }
-    .day-label.today .day-date { color: #111; }
+    .day-label.today {
+      background: var(--green);
+    }
+    .day-label.today .day-name { color: rgba(255,255,255,0.7); }
+    .day-label.today .day-date { color: #fff; }
 
     .day-content {
       background: var(--surface);
       border-radius: 12px;
-      padding: 0.6rem 1rem;
+      padding: 0.55rem 0.9rem;
       display: flex;
       align-items: center;
-      min-height: 60px;
+      min-height: 58px;
       flex-wrap: wrap;
       gap: 0.4rem;
     }
-    .day-content.has-shift { border: 1.5px solid #2a2a2a; }
-    .no-shift { font-size: 0.75rem; color: var(--border); font-weight: 500; }
-
+    .day-content.has-shift {
+      border-left: 3px solid var(--green);
+    }
+    .no-shift {
+      font-size: 0.72rem;
+      color: var(--border);
+      font-weight: 500;
+    }
     .shift-tag {
       background: var(--yellow);
       color: #111;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      padding: 0.22rem 0.65rem;
+      padding: 0.2rem 0.65rem;
       border-radius: 20px;
+      letter-spacing: -0.01em;
     }
 
-    /* Notice */
+    /* ── Notice ── */
     .notice {
       margin-top: 1.5rem;
       background: var(--surface);
@@ -224,13 +233,13 @@
       padding: 1.5rem;
       text-align: center;
     }
-    .notice p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
-    .notice strong { color: var(--yellow); }
+    .notice p { font-size: 0.78rem; color: var(--muted); line-height: 1.75; }
+    .notice strong { color: var(--green); }
 
     footer {
       margin-top: 2rem;
       text-align: center;
-      font-size: 0.67rem;
+      font-size: 0.64rem;
       color: var(--border);
       letter-spacing: 0.04em;
     }
@@ -238,9 +247,13 @@
 </head>
 <body>
 
+<!-- Green header with real golden arches -->
 <div class="header-bar">
   <div class="header-logo">
-    <div class="m-icon">M</div>
+    <!-- McDonald's golden arches -->
+    <svg class="mcd-logo" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 55 C10 55 10 10 22 10 C34 10 34 40 40 40 C46 40 46 10 58 10 C70 10 70 55 70 55 L60 55 C60 55 60 22 58 22 C54 22 52 55 40 55 C28 55 26 22 22 22 C20 22 20 55 20 55 Z" fill="#FFC72C"/>
+    </svg>
     <div class="title-block">
       <div class="title">My Schedule</div>
       <div class="subtitle">McDonald's Rooster</div>
