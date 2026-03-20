@@ -4,276 +4,267 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Work Schedule</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0e0f11;
-      --surface: #16181c;
-      --surface2: #1e2026;
-      --border: #2a2d35;
-      --accent: #f0c040;
-      --accent2: #e05a2b;
-      --text: #e8e9ec;
-      --muted: #6b7280;
-      --shift-bg: #1e2a1a;
-      --shift-border: #3a5c30;
-      --shift-text: #7ecb5f;
+      --yellow: #FFC72C;
+      --bg: #111111;
+      --surface: #1e1e1e;
+      --surface2: #2a2a2a;
+      --border: #333333;
+      --text: #ffffff;
+      --muted: #888888;
     }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Syne', sans-serif;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      padding: 2rem 1rem;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(240,192,64,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(240,192,64,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    header {
+
+    /* Yellow header */
+    .header-bar {
+      background: var(--yellow);
+      padding: 1rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    .logo {
-      font-size: 1.5rem;
+    .header-logo { display: flex; align-items: center; gap: 0.6rem; }
+    .m-icon {
+      font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text);
+      color: #111;
+      letter-spacing: -0.05em;
+      line-height: 1;
     }
-    .logo span { color: var(--accent); }
+    .title-block .title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111;
+    }
+    .title-block .subtitle {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: #555;
+    }
     .month-nav {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.5rem 1rem;
+      gap: 0.6rem;
+      background: rgba(0,0,0,0.12);
+      border-radius: 20px;
+      padding: 0.3rem 0.7rem;
     }
     .month-nav button {
       background: none;
       border: none;
-      color: var(--accent);
-      font-size: 1.2rem;
+      color: #111;
+      font-size: 1rem;
+      font-weight: 800;
       cursor: pointer;
-      width: 28px;
-      height: 28px;
+      width: 22px;
+      height: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 6px;
+      border-radius: 50%;
       transition: background 0.15s;
     }
-    .month-nav button:hover { background: var(--surface2); }
+    .month-nav button:hover { background: rgba(0,0,0,0.15); }
     .month-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text);
-      min-width: 130px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #111;
+      min-width: 110px;
       text-align: center;
-      letter-spacing: 0.05em;
     }
-    .week-nav {
+
+    /* Body */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2rem;
+    }
+
+    /* Week strip */
+    .week-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+      margin-bottom: 1rem;
     }
     .week-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
       color: var(--muted);
-      letter-spacing: 0.08em;
       text-transform: uppercase;
+      letter-spacing: 0.07em;
     }
-    .week-arrows { display: flex; gap: 0.5rem; }
+    .week-arrows { display: flex; gap: 0.4rem; }
     .week-arrows button {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       color: var(--text);
-      font-size: 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 600;
       cursor: pointer;
-      padding: 0.35rem 0.75rem;
-      border-radius: 8px;
+      padding: 0.28rem 0.65rem;
+      border-radius: 20px;
       transition: all 0.15s;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
     .week-arrows button:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--yellow);
+      color: #111;
+      border-color: var(--yellow);
     }
-    /* Sync status */
+
+    /* Sync bar */
     .sync-bar {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      font-size: 0.7rem;
       color: var(--muted);
     }
     .sync-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--border);
       flex-shrink: 0;
     }
-    .sync-dot.ok { background: #7ecb5f; }
-    .sync-dot.error { background: #e05a2b; }
-    .days {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
+    .sync-dot.ok    { background: #6fcf6f; }
+    .sync-dot.error { background: #cf6f6f; }
+
+    /* Day cards */
+    .days { display: flex; flex-direction: column; gap: 0.45rem; }
+
     .day-row {
       display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 0.75rem;
+      grid-template-columns: 72px 1fr;
+      gap: 0.45rem;
       align-items: stretch;
-      animation: fadeIn 0.3s ease forwards;
+      animation: fadeUp 0.25s ease forwards;
       opacity: 0;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .day-row:nth-child(1) { animation-delay: 0.05s; }
-    .day-row:nth-child(2) { animation-delay: 0.10s; }
-    .day-row:nth-child(3) { animation-delay: 0.15s; }
-    .day-row:nth-child(4) { animation-delay: 0.20s; }
-    .day-row:nth-child(5) { animation-delay: 0.25s; }
-    .day-row:nth-child(6) { animation-delay: 0.30s; }
-    .day-row:nth-child(7) { animation-delay: 0.35s; }
+    .day-row:nth-child(1) { animation-delay: 0.04s; }
+    .day-row:nth-child(2) { animation-delay: 0.08s; }
+    .day-row:nth-child(3) { animation-delay: 0.12s; }
+    .day-row:nth-child(4) { animation-delay: 0.16s; }
+    .day-row:nth-child(5) { animation-delay: 0.20s; }
+    .day-row:nth-child(6) { animation-delay: 0.24s; }
+    .day-row:nth-child(7) { animation-delay: 0.28s; }
+
     .day-label {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      padding: 0.6rem 0.5rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      text-align: center;
     }
     .day-name {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
     }
     .day-date {
-      font-family: 'DM Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 800;
       color: var(--text);
+      line-height: 1.1;
       margin-top: 2px;
     }
-    .day-label.today {
-      border-color: var(--accent);
-      background: #1c1a10;
-    }
-    .day-label.today .day-name { color: var(--accent); }
-    .day-label.today .day-date { color: var(--accent); }
+    .day-label.today { background: var(--yellow); }
+    .day-label.today .day-name { color: #666; }
+    .day-label.today .day-date { color: #111; }
+
     .day-content {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
       display: flex;
       align-items: center;
-      min-height: 64px;
+      min-height: 60px;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
-    .no-shift {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--border);
-      letter-spacing: 0.05em;
-    }
+    .day-content.has-shift { border: 1.5px solid #2a2a2a; }
+    .no-shift { font-size: 0.75rem; color: var(--border); font-weight: 500; }
+
     .shift-tag {
-      background: var(--shift-bg);
-      border: 1px solid var(--shift-border);
-      color: var(--shift-text);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.82rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      font-weight: 500;
+      background: var(--yellow);
+      color: #111;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.22rem 0.65rem;
+      border-radius: 20px;
     }
-    .shift-tag.accent {
-      background: #1e1510;
-      border-color: #7a4020;
-      color: #e8935a;
-    }
+
+    /* Notice */
     .notice {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: 12px;
+      border: 1.5px dashed var(--border);
+      border-radius: 14px;
       padding: 1.5rem;
       text-align: center;
     }
-    .notice p {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .notice strong { color: var(--accent); }
+    .notice p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+    .notice strong { color: var(--yellow); }
+
     footer {
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       text-align: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.67rem;
       color: var(--border);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <div class="logo">work<span>.</span>schedule</div>
-    <div class="month-nav">
-      <button id="prevMonth" title="Previous month">&#8592;</button>
-      <div class="month-label" id="monthLabel">—</div>
-      <button id="nextMonth" title="Next month">&#8594;</button>
-    </div>
-  </header>
 
-  <div class="week-nav">
-    <div class="week-label" id="weekLabel">Week —</div>
+<div class="header-bar">
+  <div class="header-logo">
+    <div class="m-icon">M</div>
+    <div class="title-block">
+      <div class="title">My Schedule</div>
+      <div class="subtitle">McDonald's Rooster</div>
+    </div>
+  </div>
+  <div class="month-nav">
+    <button id="prevMonth">&#8592;</button>
+    <div class="month-label" id="monthLabel">&#8212;</div>
+    <button id="nextMonth">&#8594;</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="week-strip">
+    <div class="week-label" id="weekLabel">&#8212;</div>
     <div class="week-arrows">
-      <button id="prevWeek">← Prev week</button>
-      <button id="nextWeek">Next week →</button>
+      <button id="prevWeek">&#8592; Prev</button>
+      <button id="nextWeek">Next &#8594;</button>
     </div>
   </div>
 
   <div class="sync-bar">
     <div class="sync-dot" id="syncDot"></div>
-    <span id="syncLabel">checking for updates…</span>
+    <span id="syncLabel">checking for updates&#8230;</span>
   </div>
 
   <div class="days" id="daysContainer"></div>
@@ -281,36 +272,25 @@
   <div class="notice" id="notice">
     <p>
       No schedule data yet.<br/>
-      <strong>Shifts will appear here automatically</strong> once your Google Apps Script
-      reads your McDonald's roster emails and updates <strong>schedule.json</strong>
-      in your GitHub repository.<br/><br/>
-      See the <strong>README</strong> for setup instructions.
+      <strong>Shifts will appear here automatically</strong><br/>
+      once your Google Apps Script reads your roster emails.
     </p>
   </div>
 
-  <footer>connected to mcdonalds rooster · auto-updates via gmail + github</footer>
+  <footer>auto-synced from gmail &middot; updates every hour</footer>
 </div>
 
 <script>
-  // ─── Config ──────────────────────────────────────────────────────────────────
-  // Path to the JSON file served from your GitHub Pages repo root.
-  // The Apps Script will update this file via the GitHub API.
-  const SCHEDULE_JSON = './schedule.json';
-  const POLL_INTERVAL_MS = 5 * 60 * 1000; // re-fetch every 5 minutes
+  const SCHEDULE_JSON    = './schedule.json';
+  const POLL_INTERVAL_MS = 5 * 60 * 1000;
 
-  // ─── State ───────────────────────────────────────────────────────────────────
   const DAYS   = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   const MONTHS = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
 
-  // Shifts from the JSON file; also merged with anything in localStorage
-  // (localStorage acts as an offline cache / fallback)
-  let shifts = JSON.parse(localStorage.getItem('schedule_shifts') || '{}');
+  let shifts    = JSON.parse(localStorage.getItem('schedule_shifts') || '{}');
+  let weekStart = getMonday(new Date());
 
-  let currentDate = new Date();
-  let weekStart   = getMonday(currentDate);
-
-  // ─── Helpers ─────────────────────────────────────────────────────────────────
   function getMonday(d) {
     const date = new Date(d);
     const day  = date.getDay();
@@ -319,7 +299,7 @@
     date.setHours(0, 0, 0, 0);
     return date;
   }
-  function dateKey(d)  {
+  function dateKey(d) {
     return d.getFullYear() + '-' +
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
@@ -336,29 +316,24 @@
            d.getDate()     === t.getDate();
   }
 
-  // ─── Sync from schedule.json ─────────────────────────────────────────────────
   async function fetchSchedule() {
     const dot   = document.getElementById('syncDot');
     const label = document.getElementById('syncLabel');
     try {
-      const res  = await fetch(SCHEDULE_JSON + '?t=' + Date.now());
+      const res = await fetch(SCHEDULE_JSON + '?t=' + Date.now());
       if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      // data format: { "2026-03-23": ["09:00–17:00"], … }
-      shifts = data;
+      shifts = await res.json();
       localStorage.setItem('schedule_shifts', JSON.stringify(shifts));
-      dot.className   = 'sync-dot ok';
+      dot.className     = 'sync-dot ok';
       label.textContent = 'last synced ' + new Date().toLocaleTimeString();
       render();
     } catch (e) {
-      dot.className   = 'sync-dot error';
-      label.textContent = 'could not load schedule.json — showing cached data';
-      // keep using whatever is in localStorage
+      dot.className     = 'sync-dot error';
+      label.textContent = 'could not sync — showing cached data';
       render();
     }
   }
 
-  // ─── Render ──────────────────────────────────────────────────────────────────
   function render() {
     const thursday = addDays(weekStart, 3);
     document.getElementById('monthLabel').textContent =
@@ -366,8 +341,8 @@
 
     const weekEnd = addDays(weekStart, 6);
     document.getElementById('weekLabel').textContent =
-      `${weekStart.getDate()} ${MONTHS[weekStart.getMonth()].slice(0,3)} – ` +
-      `${weekEnd.getDate()} ${MONTHS[weekEnd.getMonth()].slice(0,3)}`;
+      weekStart.getDate() + ' ' + MONTHS[weekStart.getMonth()].slice(0,3) + ' - ' +
+      weekEnd.getDate()   + ' ' + MONTHS[weekEnd.getMonth()].slice(0,3);
 
     const container = document.getElementById('daysContainer');
     container.innerHTML = '';
@@ -382,27 +357,26 @@
       const row = document.createElement('div');
       row.className = 'day-row';
 
-      const label = document.createElement('div');
-      label.className = 'day-label' + (isToday(day) ? ' today' : '');
-      label.innerHTML = `
-        <div class="day-name">${name.slice(0,3)}</div>
-        <div class="day-date">${String(day.getDate()).padStart(2,'0')} ${MONTHS[day.getMonth()].slice(0,3)}</div>
-      `;
+      const lbl = document.createElement('div');
+      lbl.className = 'day-label' + (isToday(day) ? ' today' : '');
+      lbl.innerHTML =
+        '<div class="day-name">' + name.slice(0,3) + '</div>' +
+        '<div class="day-date">' + day.getDate() + '</div>';
 
       const content = document.createElement('div');
-      content.className = 'day-content';
+      content.className = 'day-content' + (dayShifts.length ? ' has-shift' : '');
       if (dayShifts.length === 0) {
-        content.innerHTML = `<span class="no-shift">— free —</span>`;
+        content.innerHTML = '<span class="no-shift">Day off</span>';
       } else {
-        dayShifts.forEach((s, idx) => {
+        dayShifts.forEach(s => {
           const tag = document.createElement('span');
-          tag.className = 'shift-tag' + (idx % 2 === 1 ? ' accent' : '');
+          tag.className   = 'shift-tag';
           tag.textContent = s;
           content.appendChild(tag);
         });
       }
 
-      row.appendChild(label);
+      row.appendChild(lbl);
       row.appendChild(content);
       container.appendChild(row);
     });
@@ -410,30 +384,20 @@
     document.getElementById('notice').style.display = hasAnyShift ? 'none' : 'block';
   }
 
-  // ─── Navigation ──────────────────────────────────────────────────────────────
-  document.getElementById('prevWeek').onclick  = () => { weekStart = addDays(weekStart, -7);  render(); };
-  document.getElementById('nextWeek').onclick  = () => { weekStart = addDays(weekStart,  7);  render(); };
+  document.getElementById('prevWeek').onclick  = () => { weekStart = addDays(weekStart,  -7); render(); };
+  document.getElementById('nextWeek').onclick  = () => { weekStart = addDays(weekStart,   7); render(); };
   document.getElementById('prevMonth').onclick = () => { weekStart = addDays(weekStart, -28); render(); };
   document.getElementById('nextMonth').onclick = () => { weekStart = addDays(weekStart,  28); render(); };
 
-  // ─── Console helpers (for manual testing) ────────────────────────────────────
-  window.addShift = function(dateStr, shiftText) {
+  window.addShift = (dateStr, shiftText) => {
     if (!shifts[dateStr]) shifts[dateStr] = [];
     shifts[dateStr].push(shiftText);
     localStorage.setItem('schedule_shifts', JSON.stringify(shifts));
     render();
-    console.log('Shift added:', dateStr, shiftText);
-  };
-  window.clearSchedule = function() {
-    shifts = {};
-    localStorage.removeItem('schedule_shifts');
-    render();
   };
 
-  // ─── Init ────────────────────────────────────────────────────────────────────
   fetchSchedule();
   setInterval(fetchSchedule, POLL_INTERVAL_MS);
 </script>
 </body>
 </html>
-<!-- cache-bust v2 -->
